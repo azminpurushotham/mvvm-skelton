@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">skelton</string>
+
+    <string name="days_left">days left</string>
+    <string name="hours_left">hours left</string>
+    <string name="weeks_left">weeks left</string>
+    <string name="week_left">week left</string>
+    <string name="day_left">day left</string>
+    <string name="hour_left">hour left</string>
+    <string name="minute_left">minute left</string>
+    <string name="minutes_left">minutes left</string>
+    <string name="second_left">second left</string>
+    <string name="seconds_left">seconds left</string>
+    <string name="overdue_deadline">Overdue deadline</string>
+    <string name="select">Select</string>
+    <string name="no_Internet">"No internet connection "</string>
+    <string name="try_again">Try Again</string>
+    <string name="network_settings">Network settings</string>
+    <string name="loading">Loading</string>
+
+
+</resources>

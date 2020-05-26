@@ -1,0 +1,136 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion COMPILE_VERSION
+    buildToolsVersion BUILD_VERSION
+
+    defaultConfig {
+        applicationId "com.azmin.skelton"
+        minSdkVersion MIN_VERSION
+        targetSdkVersion COMPILE_VERSION
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            buildConfigField "String", "BASE_URL", '"https://someurl/"'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            buildConfigField "String", "BASE_URL", '"https://someurl/"'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError false
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    /*Kotlin library started*/
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    implementation "androidx.core:core:$ANDROID_SUPPORT"
+    implementation "androidx.cardview:cardview:$ANDROID_SUPPORT"
+    implementation "androidx.legacy:legacy-support-v4:$ANDROID_SUPPORT"
+    implementation "androidx.appcompat:appcompat:$ANDROID_SUPPORT"
+    implementation "com.google.android.material:material:$ANDROID_MATERIAL_SUPPORT"
+    implementation "androidx.core:core-ktx:$ANDROID_SUPPORT"
+    implementation "androidx.cardview:cardview:$ANDROID_SUPPORT"
+    implementation "androidx.recyclerview:recyclerview:$ANDROID_SUPPORT"
+    implementation "androidx.legacy:legacy-preference-v14:$ANDROID_SUPPORT"
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    implementation "androidx.constraintlayout:constraintlayout:$CONSTRAINT_LAYOUT_VERSION"
+    implementation "androidx.browser:browser:$ANDROID_SUPPORT"
+    implementation "androidx.activity:activity-ktx:1.1.0"
+    implementation 'androidx.fragment:fragment-ktx:1.2.4'
+
+    annotationProcessor "com.android.databinding:compiler:$IDE_VERSION"
+    kapt "com.android.databinding:compiler:$IDE_VERSION"
+
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // LIFE CYCLE
+    implementation "androidx.lifecycle:lifecycle-runtime:$LIFECYCLE_VERSION"
+    implementation "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
+    kapt "androidx.lifecycle:lifecycle-compiler:$LIFECYCLE_VERSION"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$LIFECYCLE_VERSION"
+
+    /*dagger started*/
+    api "com.google.dagger:dagger:$DAGGER_VERSION"
+    implementation "com.google.dagger:dagger:$DAGGER_VERSION"
+    implementation "com.google.dagger:dagger-android-support:$DAGGER_VERSION"
+
+    kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    annotationProcessor "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+
+    annotationProcessor "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
+    kapt "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
+
+    //    /*butterknife started*/
+    implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
+    kapt "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
+
+    //RX
+    implementation "io.reactivex.rxjava3:rxandroid:$RX_VERSION"
+    implementation "io.reactivex.rxjava3:rxjava:$RX_VERSION"
+
+    //Glide dependency started*/
+    implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$GLIDE_VERSION"
+    annotationProcessor "com.github.bumptech.glide:compiler:$GLIDE_VERSION"
+
+    //Retrofit dependency
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_Version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_Version"
+
+    // SHIMMER
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // scalable size unit lib
+    implementation project(':sdp-android')
+
+    androidExtensions {
+        experimental = true
+    }
+
+}

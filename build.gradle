@@ -1,0 +1,71 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+ext {
+    COMPILE_VERSION = 29
+    BUILD_VERSION = "29.0.3"
+    MIN_VERSION = 18
+
+    ANDROID_SUPPORT = "1.0.0"
+    ANDROID_MATERIAL_SUPPORT = "1.1.0"
+    ANDROID_RECYCLER_VIEW_VERSION = "1.1.0"
+    ANDROID_RECYCLER_VIEW_SELECTION_VERSION = "1.1.0-rc01"
+    CONSTRAINT_LAYOUT_VERSION = "1.1.3"
+    SUPPORT_SERVICE = '15.0.1'
+
+    SUPPORT_LEANBACK_VERSION = '1.0.0'
+    CONNESTRAINT_LAYOUT_VERSION = "2.0.0"
+
+    LIFECYCLE_VERSION = "2.2.0"
+    ROOM_VERSION = '2.0.0-beta01'
+
+    BUTTERKNIFE_VERSION = '10.2.1'
+
+    GLIDE_VERSION = "4.8.0"
+    Glide_Transformations = "3.3.0"
+    Glide_Gpuimage = "1.4.1"
+
+    roomVersion = '2.0.0-beta01'
+
+    RX_VERSION = '3.0.0'
+    DAGGER_VERSION = '2.27'
+    ASSISTED_DAGGER_VERSION = "0.5.2"
+    PICASSO_VERSION = '2.5.2'
+    RETROFIT_VERSION = '2.4.0'
+
+    archRoomVersion = '2.0.0-beta01'
+    xpece = "2.2.0"
+    Android_Networking = "1.0.2"
+    okhttp_Version = "3.12.2"
+
+    extJUnitVersion = "1.0.0"
+}
+buildscript {
+    ext.kotlin_version = '1.3.61'
+    ext.IDE_VERSION = '3.6.1'
+    ext.nav_version = "2.3.0-alpha04"
+
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:${IDE_VERSION}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
