@@ -6,8 +6,6 @@ package com.azmin.skelton.login.model
 *Date         : 26/5/20 4:14 PM      
 */
 data class LoginUserModel(
-    var userName: String,
-    var password: String
-) {
-
-}
+    var userName: String = "",
+    var password: String = ""
+)

@@ -1,8 +1,7 @@
-package com.azmin.skelton.login
+package com.azmin.skelton.home
 
 import android.text.TextUtils
 import androidx.databinding.BaseObservable
-import androidx.lifecycle.MutableLiveData
 import com.azmin.skelton.AppApplication
 import com.azmin.skelton.R
 import com.azmin.skelton.login.model.LoginUserModel
@@ -12,18 +11,15 @@ import core.base.BaseViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
-class LoginVM @Inject constructor(
+class HomeVM @Inject constructor(
     val application: AppApplication,
     val pref: SharedPreferenceUtils,
-    val repo: LoginRepo
+    val repo: HomeRepo
 ) : BaseViewModel() {
 
     var param = LoginUserModel()
-    var loginSuccess = MutableLiveData<Boolean>(false)
 
     init {
-        pref.clearFireBaseToken()
-        pref.clearUser()
         loadData()
     }
 
@@ -37,9 +33,8 @@ class LoginVM @Inject constructor(
 
     fun requestLogin() {
         if (isValidate())
-            repo.login(LoginUserModel("", ""))
+            repo.loadData(LoginUserModel("", ""))
                 .observeForever { response ->
-                    loginSuccess.value = true
                     when (response?.status) {
 
                         Resource.Status.LOADING -> {
@@ -50,7 +45,6 @@ class LoginVM @Inject constructor(
                         Resource.Status.SUCCESS -> {
                             Timber.d("SUCCESS")
                             showLoading(false)
-                            loginSuccess.value = true
                         }
 
                         Resource.Status.ERROR -> {

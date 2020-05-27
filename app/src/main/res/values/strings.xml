@@ -17,6 +17,9 @@
     <string name="try_again">Try Again</string>
     <string name="network_settings">Network settings</string>
     <string name="loading">Loading</string>
+    <string name="username_required">User name required</string>
+    <string name="password_required">Password required</string>
+    <string name="home">Home</string>
 
 
 </resources>

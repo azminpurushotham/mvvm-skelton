@@ -1,5 +1,6 @@
 package com.azmin.skelton.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -8,6 +9,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.azmin.skelton.R
 import com.azmin.skelton.databinding.ActivityLoginBinding
+import com.azmin.skelton.main.MainActivity
 import core.base.BaseActivity
 import core.utility.ProgressDialogUtil
 import core.utility.ToastStateEnum
@@ -59,6 +61,13 @@ class LoginActivity : BaseActivity() {
                 onBackClicked()
             }
         })
+
+        vm.loginSuccess.observe(this, Observer {
+            if (it) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        })
     }
 
     private fun onBackClicked() {
@@ -72,7 +81,6 @@ class LoginActivity : BaseActivity() {
 
     @OnClick(R.id.tvForgetPassword)
     fun onForgotPassword(view: View) {
-
     }
 
     @OnClick(R.id.tvForgetPassword)
