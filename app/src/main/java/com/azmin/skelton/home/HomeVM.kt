@@ -2,6 +2,7 @@ package com.azmin.skelton.home
 
 import android.text.TextUtils
 import androidx.databinding.BaseObservable
+import androidx.lifecycle.MutableLiveData
 import com.azmin.skelton.AppApplication
 import com.azmin.skelton.R
 import com.azmin.skelton.login.model.LoginUserModel
@@ -17,60 +18,44 @@ class HomeVM @Inject constructor(
     val repo: HomeRepo
 ) : BaseViewModel() {
 
-    var param = LoginUserModel()
+    var _list = MutableLiveData<List<String>>()
+    val list get() = _list
 
     init {
         loadData()
     }
 
     override fun loadData() {
-        setSuccessToast(application.getString(R.string.app_name))
+        _list.value = listOf("one", "two", "three")
+        repo.loadData()
+            .observeForever { response ->
+                when (response?.status) {
+                    Resource.Status.LOADING -> {
+                        Timber.d("Loading")
+                        showLoading(true)
+                    }
 
+                    Resource.Status.SUCCESS -> {
+                        Timber.d("SUCCESS")
+                        showLoading(false)
+                    }
+
+                    Resource.Status.ERROR -> {
+                        Timber.d("ERROR")
+                        Timber.v("Error " + response.resourceError)
+                        showLoading(false)
+                    }
+
+                    Resource.Status.COMPLETED -> {
+                        Timber.d("COMPLETED")
+                        showLoading(false)
+                    }
+                }
+            }
     }
 
     override fun setLoadMore() {
+
     }
-
-    fun requestLogin() {
-        if (isValidate())
-            repo.loadData(LoginUserModel("", ""))
-                .observeForever { response ->
-                    when (response?.status) {
-
-                        Resource.Status.LOADING -> {
-                            Timber.d("Loading")
-                            showLoading(true)
-                        }
-
-                        Resource.Status.SUCCESS -> {
-                            Timber.d("SUCCESS")
-                            showLoading(false)
-                        }
-
-                        Resource.Status.ERROR -> {
-                            Timber.d("ERROR")
-                            Timber.v("Error " + response.resourceError)
-                            showLoading(false)
-                        }
-
-                        Resource.Status.COMPLETED -> {
-                            Timber.d("COMPLETED")
-                            showLoading(false)
-                        }
-                    }
-                }
-    }
-
-    private fun isValidate(): Boolean {
-        if (TextUtils.isEmpty(param.userName)) {
-            setInfoToast(application.getString(R.string.username_required))
-            return false
-        } else if (TextUtils.isEmpty(param.password)) {
-            setInfoToast(application.getString(R.string.password_required))
-            return false
-        }
-        return true
-    }
-
 
 }

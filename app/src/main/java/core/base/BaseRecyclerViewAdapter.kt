@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 *Created by   : Azmin Purushotham              
 *Date         : 24/11/19 11:36 AM      
 */
-abstract class BaseRecyclerViewListAdapter<T>(
+abstract class BaseRecyclerViewAdapter<T>(
     diffCallback: DiffUtil.ItemCallback<T>
 ) : ListAdapter<T, BaseRecyclerViewHolder>(
     AsyncDifferConfig.Builder<T>(diffCallback)

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
 import butterknife.ButterKnife
 import com.azmin.skelton.R
 import com.azmin.skelton.databinding.FragmentHomeBinding
@@ -16,10 +18,15 @@ import core.utility.ToastUtil
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), HomeAdapter.OnItemClickListener {
 
     @Inject
     lateinit var vm: HomeVM
+    var adapter: HomeAdapter? = null
+    var list = ArrayList<String>()
+
+    @BindView(R.id.recyclerView)
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +35,7 @@ class HomeFragment : BaseFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         AndroidSupportInjection.inject(this)
-        var binding = FragmentHomeBinding.inflate(inflater,container, false)
+        var binding = FragmentHomeBinding.inflate(inflater, container, false)
         val mView = binding.root
         ButterKnife.bind(this, mView)
         binding.vm = vm
@@ -73,10 +80,35 @@ class HomeFragment : BaseFragment() {
                 onBackClicked()
             }
         })
+
+        vm.list.observe(viewLifecycleOwner, Observer {
+            list.clear()
+            list.addAll(it)
+            setAdapter()
+        })
+
+    }
+
+    private fun setAdapter() {
+        if (adapter == null && list?.isNotEmpty()!!) {
+            adapter = HomeAdapter(list, this)
+            recyclerView.adapter = adapter
+            adapter?.submitList(list)
+        } else {
+            adapter?.notifyDataSetChanged()
+        }
     }
 
     private fun onBackClicked() {
         requireActivity().finish()
+    }
+
+    override fun onItemClickListener(position: Int) {
+
+    }
+
+    override fun onDetailClick(position: Int, item: String) {
+
     }
 
 }

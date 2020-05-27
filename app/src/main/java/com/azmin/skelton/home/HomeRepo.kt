@@ -12,11 +12,11 @@ import javax.inject.Inject
 
 class HomeRepo @Inject constructor(var api: ApiService) : BaseRepository() {
 
-    fun loadData(param: LoginUserModel): LiveData<Resource<BaseResponse<Any>>> {
-        return NetworkCall<BaseResponse<Any>>()
+    fun loadData(): LiveData<Resource<BaseResponse<List<Any>>>> {
+        return NetworkCall<BaseResponse<List<Any>>>()
             .makeCall(
                 api.createService(APIHome::class.java)
-                    .login(param)
+                    .loadData()
             )
     }
 

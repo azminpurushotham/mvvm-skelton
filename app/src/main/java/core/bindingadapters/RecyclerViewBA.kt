@@ -2,7 +2,7 @@ package core.bindingadapters
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import base.BaseRecyclerViewListAdapter
+import base.BaseRecyclerViewAdapter
 
 /*
 *Project Name : Aqdar                   
@@ -12,7 +12,7 @@ import base.BaseRecyclerViewListAdapter
 object RecyclerViewBA {
     @JvmStatic
     @BindingAdapter(value = ["app:adapter", "app:list"], requireAll = true)
-    fun <T> RecyclerView.setAdapter(adapter: BaseRecyclerViewListAdapter<T>?, list: List<T>?) {
+    fun <T> RecyclerView.setAdapter(adapter: BaseRecyclerViewAdapter<T>?, list: List<T>?) {
         if (list != null && list.isNotEmpty() && adapter != null) {
             if (this.adapter==null) {
                 this.adapter = adapter
