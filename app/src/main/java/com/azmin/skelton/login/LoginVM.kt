@@ -56,6 +56,7 @@ class LoginVM @Inject constructor(
                             Timber.d("ERROR")
                             Timber.v("Error " + response.resourceError)
                             showLoading(false)
+                            setInfoToast(response.resourceError?.error?.message.toString())
                         }
 
                         Resource.Status.COMPLETED -> {

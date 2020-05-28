@@ -1,6 +1,7 @@
 package com.timeline.recta.apiService.webapi
 
 import androidx.lifecycle.MutableLiveData
+import core.webapis.Error
 import core.webapis.ErrorUtils
 import core.webapis.ResourceError
 import retrofit2.Call
@@ -25,7 +26,9 @@ class NetworkCall<T> {
 
         var result: MutableLiveData<Resource<T>> = MutableLiveData()
         override fun onFailure(call: Call<T>, t: Throwable) {
-            result.value = Resource.error(ResourceError())
+            var error = ResourceError()
+            error.error = core.webapis.Error(0, t.message!!)
+            result.value = Resource.error(error)
             t.printStackTrace()
             result.value = Resource.completed()
         }
@@ -39,7 +42,8 @@ class NetworkCall<T> {
 
                 when (code) {
                     INVALID_TOKEN -> {
-                        result.value = Resource.invalidToken(ErrorUtils().parseTokenError(body, code))
+                        result.value =
+                            Resource.invalidToken(ErrorUtils().parseTokenError(body, code))
                     }
                     else -> {
                         result.value = Resource.error(ErrorUtils().parseError(body, code))
