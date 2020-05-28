@@ -1,4 +1,4 @@
-package com.azmin.skelton.home
+package com.azmin.skelton.itemDetail
 
 import android.content.Context
 import android.os.Bundle
@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
 import butterknife.ButterKnife
 import com.azmin.skelton.R
-import com.azmin.skelton.databinding.FragmentHomeBinding
+import com.azmin.skelton.databinding.FragmentItemdetailBinding
 import core.base.BaseFragment
 import core.utility.ProgressDialogUtil
 import core.utility.ToastStateEnum
@@ -23,15 +21,10 @@ import dagger.android.support.AndroidSupportInjection
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment(), HomeAdapter.OnItemClickListener {
+class ItemDetailFragment : BaseFragment() {
 
     @Inject
-    lateinit var vm: HomeVM
-    var adapter: HomeAdapter? = null
-    var list = ArrayList<String>()
-
-    @BindView(R.id.recyclerView)
-    lateinit var recyclerView: RecyclerView
+    lateinit var vm: ItemDetailVM
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,7 +45,7 @@ class HomeFragment : BaseFragment(), HomeAdapter.OnItemClickListener {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         AndroidSupportInjection.inject(this)
-        var binding = FragmentHomeBinding.inflate(inflater, container, false)
+        var binding = FragmentItemdetailBinding.inflate(inflater, container, false)
         val mView = binding.root
         ButterKnife.bind(this, mView)
         binding.vm = vm
@@ -98,37 +91,12 @@ class HomeFragment : BaseFragment(), HomeAdapter.OnItemClickListener {
             }
         })
 
-        vm.list.observe(viewLifecycleOwner, Observer {
-            list.clear()
-            list.addAll(it)
-            setAdapter()
-        })
-
     }
 
-    private fun setAdapter() {
-        if (adapter == null && list?.isNotEmpty()!!) {
-            adapter = HomeAdapter(list, this)
-            recyclerView.adapter = adapter
-            adapter?.submitList(list)
-        } else {
-            adapter?.notifyDataSetChanged()
-        }
-    }
 
     private fun onBackClicked() {
         Timber.v("onBackClicked")
-        requireActivity().finish()
-    }
-
-    override fun onItemClickListener(position: Int) {
-
-    }
-
-    override fun onDetailClick(position: Int, item: String) {
-        var bundle = Bundle()
-        bundle.putInt("value", 1)
-        findNavController().navigate(R.id.to_detailFragment, bundle)
+        requireActivity().findNavController(R.id.fragment).popBackStack()
     }
 
 }

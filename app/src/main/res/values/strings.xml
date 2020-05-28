@@ -20,6 +20,7 @@
     <string name="username_required">User name required</string>
     <string name="password_required">Password required</string>
     <string name="home">Home</string>
+    <string name="detail">detail</string>
 
 
 </resources>
