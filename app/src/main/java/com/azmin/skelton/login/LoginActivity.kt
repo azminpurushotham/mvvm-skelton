@@ -10,6 +10,7 @@ import butterknife.OnClick
 import com.azmin.skelton.R
 import com.azmin.skelton.databinding.ActivityLoginBinding
 import com.azmin.skelton.main.MainActivity
+import com.azmin.skelton.utils.IntentHelper
 import core.base.BaseActivity
 import core.utility.ProgressDialogUtil
 import core.utility.ToastStateEnum
@@ -64,9 +65,7 @@ class LoginActivity : BaseActivity() {
 
         vm.loginSuccess.observe(this, Observer {
             if (it) {
-                var intent  = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(Intent(this, MainActivity::class.java))
+                IntentHelper.startHomeActivity(this)
                 finish()
             }
         })
@@ -76,10 +75,10 @@ class LoginActivity : BaseActivity() {
         finish()
     }
 
-    @OnClick(R.id.btnLogin)
-    fun onLogin(view: View) {
-        vm.requestLogin()
-    }
+//    @OnClick(R.id.btnLogin)
+//    fun onLogin(view: View) {
+//        vm.requestLogin()
+//    }
 
     @OnClick(R.id.tvForgetPassword)
     fun onForgotPassword(view: View) {

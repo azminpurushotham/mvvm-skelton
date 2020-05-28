@@ -37,9 +37,9 @@ class LoginVM @Inject constructor(
 
     fun requestLogin() {
         if (isValidate())
+            loginSuccess.value = true
             repo.login(LoginUserModel("", ""))
                 .observeForever { response ->
-                    loginSuccess.value = true
                     when (response?.status) {
 
                         Resource.Status.LOADING -> {
@@ -50,7 +50,6 @@ class LoginVM @Inject constructor(
                         Resource.Status.SUCCESS -> {
                             Timber.d("SUCCESS")
                             showLoading(false)
-                            loginSuccess.value = true
                         }
 
                         Resource.Status.ERROR -> {
